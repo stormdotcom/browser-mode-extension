@@ -7,7 +7,7 @@
     "service_worker": "background.js"
   },
   "action": {
-    "default_popup": "pop.html",
+    "default_popup": "popup.html",
     "default_title": "StartSmart Tabs"
   },
   "icons": {
