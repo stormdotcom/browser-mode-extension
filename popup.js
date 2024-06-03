@@ -43,7 +43,10 @@ document.addEventListener("DOMContentLoaded", () => {
         "Enter URL for YouTube:",
         "https://youtube.com"
       );
-      const scalerUrl = prompt("Enter URL for Scaler:", "https://scaler.com");
+      const scalerUrl = prompt(
+        "Enter URL for  Learning App:",
+        "https://udemy.com"
+      );
       if (youtubeUrl && scalerUrl) {
         chrome.storage.sync.set({ personalUrls: [youtubeUrl, scalerUrl] });
         alert("Personal URLs updated");

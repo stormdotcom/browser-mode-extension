@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Startup Tabs",
+  "name": "Configure Startup Tabs",
   "version": "1.0",
   "permissions": ["storage", "tabs", "windows"],
   "background": {
@@ -11,6 +11,8 @@
     "default_title": "Configure Startup Tabs"
   },
   "icons": {
-    "48": "images/icon48.png"
+    "16": "images/icon16.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
   }
 }
