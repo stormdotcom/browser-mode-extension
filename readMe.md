@@ -23,4 +23,22 @@ Enhance your browsing experience with StartSmart. Download now and take control 
 
 ---
 
-Feel free to adjust the description to better fit your specific features or branding.
+### Privacy Policy for StartSmart Extension
+
+`StartSmart` is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your information when you use the StartSmart browser extension ("Extension").
+
+Information Collection
+
+StartSmart does not collect any personal information or data from its users. We do not access, store, or transmit any data about your browsing activities, personal preferences, or any other information.
+
+Data Usage
+
+As StartSmart does not collect any user data, there is no usage of such data. The extension operates solely based on local storage within your browser, where settings and preferences are stored locally on your device.
+
+Information Sharing
+
+Since we do not collect any user data, there is no information to share with third parties. Your privacy is of utmost importance to us, and we do not engage in any data sharing activities.
+
+Security
+
+StartSmart prioritizes
