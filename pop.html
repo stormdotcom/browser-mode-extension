@@ -3,12 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Explore Mode</title>
+    <title>Configure Startup Tabs</title>
+    <link rel="stylesheet" href="style.css" />
     <script src="popup.js"></script>
   </head>
   <body>
-    <h1>Explore Mode</h1>
-    <button id="workModeBtn">Work Mode</button>
-    <button id="personalModeBtn">Personal Mode</button>
+    <div class="content-main">
+      <h1>Configure Startup Tabs</h1>
+      <h2 id="modeTitle"></h2>
+      <button class="button-all" id="workModeBtn">
+        💼 Switch to Work Mode
+      </button>
+      <button class="button-all" id="setWorkUrlsBtn">🔧 Set Work URLs</button>
+      <button class="button-all" id="personalModeBtn">
+        🚀 Switch to Personal Mode
+      </button>
+      <button class="button-all" id="setPersonalUrlsBtn">
+        🔧 Set Personal URLs
+      </button>
+      <footer>Created by Ajmal Nasumudeen</footer>
+    </div>
   </body>
 </html>
