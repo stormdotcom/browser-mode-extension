@@ -1,8 +1,12 @@
 {
   "manifest_version": 3,
   "name": "StartSmart",
-  "version": "1.0",
-  "permissions": ["storage", "tabs", "windows"],
+  "version": "1.4",
+  "permissions": [
+    "storage",
+    "tabs",
+    "windows"
+  ],
   "background": {
     "service_worker": "background.js"
   },
