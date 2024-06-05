@@ -7,8 +7,7 @@ chrome.runtime.onInstalled.addListener(() => {
     personalUrls: ["https://youtube.com", "https://scaler.com"],
   });
 });
-
-chrome.windows.onCreated.addListener(() => {
+chrome.runtime.onStartup.addListener(() => {
   chrome.storage.sync.get(["mode", "workUrls", "personalUrls"], (result) => {
     const urls = result.mode === "Work" ? result.workUrls : result.personalUrls;
     for (const url of urls) {
@@ -16,3 +15,5 @@ chrome.windows.onCreated.addListener(() => {
     }
   });
 });
+
+
