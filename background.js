@@ -11,8 +11,9 @@ chrome.runtime.onInstalled.addListener(() => {
 chrome.windows.onCreated.addListener(() => {
   chrome.storage.sync.get(["mode", "workUrls", "personalUrls"], (result) => {
     const urls = result.mode === "Work" ? result.workUrls : result.personalUrls;
-    for (const url of urls) {
-      chrome.tabs.create({ url: url });
-    }
+    // Open a new window with the specified URLs
+    chrome.windows.create({ url: urls }, () => {
+      console.log("Opened a new window with the specified URLs");
+    });
   });
 });
