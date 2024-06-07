@@ -3,8 +3,7 @@
   "name": "StartSmart",
   "version": "1.5",
   "permissions": [
-    "storage",
-    "tabs"
+    "storage"
   ],
   "background": {
     "service_worker": "background.js"
