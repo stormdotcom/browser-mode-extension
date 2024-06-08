@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (setWorkUrlsBtn) {
     setWorkUrlsBtn.addEventListener("click", () => {
       const workEmailUrl = prompt(
-        "Enter URL for Work Email:",
+        "[Mode: Work] Enter URL for Work Email:",
         "https://gmail.google.com"
       );
       const jiraUrl = prompt("Enter URL for Jira:", "https://jira.com");
@@ -41,11 +41,11 @@ document.addEventListener("DOMContentLoaded", () => {
   if (setPersonalUrlsBtn) {
     setPersonalUrlsBtn.addEventListener("click", () => {
       const youtubeUrl = prompt(
-        "Enter URL for YouTube:",
+        "[Mode: Personal] Enter URL for YouTube:",
         "https://youtube.com"
       );
       const scalerUrl = prompt(
-        "Enter URL for  Learning App:",
+        "[Mode: Personal] Enter URL for Learning App:",
         "https://udemy.com"
       );
       if (youtubeUrl && scalerUrl) {
