@@ -40,16 +40,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (setPersonalUrlsBtn) {
     setPersonalUrlsBtn.addEventListener("click", () => {
+      const homePage = prompt(
+        "[Mode: Personal] Enter URL for Home:",
+        "https://google.com"
+      );
       const youtubeUrl = prompt(
         "[Mode: Personal] Enter URL for YouTube:",
         "https://youtube.com"
       );
-      const scalerUrl = prompt(
+      const learningAppUrl = prompt(
         "[Mode: Personal] Enter URL for Learning App:",
         "https://udemy.com"
       );
-      if (youtubeUrl && scalerUrl) {
-        chrome.storage.sync.set({ personalUrls: [youtubeUrl, scalerUrl] });
+      if (youtubeUrl && learningAppUrl && homePage) {
+        chrome.storage.sync.set({ personalUrls: [youtubeUrl, learningAppUrl, homePage] });
         alert("Personal URLs updated");
       }
     });
