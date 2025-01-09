@@ -39,6 +39,3 @@ Information Sharing
 
 Since we do not collect any user data, there is no information to share with third parties. Your privacy is of utmost importance to us, and we do not engage in any data sharing activities.
 
-Security
-
-StartSmart prioritizes
