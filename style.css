@@ -387,6 +387,16 @@ body {
   padding: 8px 16px 11px;
 }
 
+.footer-link {
+  color: #a5b4fc;
+  text-decoration: none;
+  transition: color 0.12s;
+}
+
+.footer-link:hover {
+  color: #4f80ff;
+}
+
 /* ── Edit / Add panel (full-popup overlay) ── */
 .edit-panel {
   position: fixed;
