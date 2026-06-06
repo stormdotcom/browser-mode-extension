@@ -1,16 +1,20 @@
 {
   "manifest_version": 3,
   "name": "StartSmart",
-  "version": "1.7",
+  "version": "2.0.0",
+  "description": "Open your startup URLs by mode and project. Switch between Work and Personal with one click.",
   "permissions": [
-    "storage"
+    "storage",
+    "tabGroups",
+    "bookmarks",
+    "contextMenus"
   ],
   "background": {
     "service_worker": "background.js"
   },
   "action": {
     "default_popup": "popup.html",
-    "default_title": "StartSmart Tabs"
+    "default_title": "StartSmart"
   },
   "icons": {
     "16": "images/icon16.png",
