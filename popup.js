@@ -51,7 +51,9 @@ async function init() {
 
   const modeData = state.modes[state.currentMode];
   state.selectedProjectId =
-    modeData.defaultProjectId || modeData.projects[0]?.id || null;
+    modeData.projects.find((p) => p.autoOpen)?.id ||
+    modeData.projects[0]?.id ||
+    null;
 
   render();
 }
@@ -82,7 +84,7 @@ function renderProjectList() {
   }
 
   modeData.projects.forEach((project) => {
-    const isDefault = project.id === modeData.defaultProjectId;
+    const isAutoOpen = project.autoOpen === true;
     const isSelected = project.id === state.selectedProjectId;
     const isExpanded = project.id === state.expandedProjectId;
     const urls = project.urls.filter((u) => u?.trim());
@@ -90,8 +92,8 @@ function renderProjectList() {
     const row = document.createElement("div");
     row.className =
       "project-row" +
-      (isDefault ? " is-default" : "") +
-      (isSelected && !isDefault ? " is-selected" : "") +
+      (isAutoOpen ? " is-default" : "") +
+      (isSelected && !isAutoOpen ? " is-selected" : "") +
       (isExpanded ? " is-expanded" : "");
     row.setAttribute("role", "listitem");
 
@@ -102,9 +104,9 @@ function renderProjectList() {
       <span class="row-chevron">${isExpanded ? ICON_CHEVRON_DOWN : ICON_CHEVRON_RIGHT}</span>
       <span class="project-folder">${ICON_FOLDER}</span>
       <span class="project-name">${escapeHtml(project.name)}</span>
-      <button class="startup-toggle${isDefault ? " on" : ""}" data-id="${escapeHtml(project.id)}"
-        title="${isDefault ? "Opens on startup — click to disable" : "Click to auto-open on browser startup"}"
-        aria-pressed="${isDefault}">
+      <button class="startup-toggle${isAutoOpen ? " on" : ""}" data-id="${escapeHtml(project.id)}"
+        title="${isAutoOpen ? "Auto-opens on startup — click to disable" : "Click to auto-open this project on browser startup"}"
+        aria-pressed="${isAutoOpen}">
         <span class="toggle-knob"></span>
       </button>
       <span class="tab-count" title="${urls.length} URL${urls.length !== 1 ? "s" : ""}">${urls.length}</span>
@@ -142,11 +144,10 @@ function renderProjectList() {
       renderOpenButton();
     });
 
-    // Startup toggle — sets/unsets this project as the auto-open default
+    // Startup toggle — independently enables/disables auto-open per project
     header.querySelector(".startup-toggle").addEventListener("click", async (e) => {
       e.stopPropagation();
-      const mde = state.modes[state.currentMode];
-      mde.defaultProjectId = mde.defaultProjectId === project.id ? null : project.id;
+      project.autoOpen = !project.autoOpen;
       await storageSet({ modes: state.modes });
       renderProjectList();
       renderOpenButton();
@@ -165,7 +166,7 @@ function renderOpenButton() {
   const modeData = state.modes[state.currentMode];
   const project =
     modeData.projects.find((p) => p.id === state.selectedProjectId) ||
-    modeData.projects.find((p) => p.id === modeData.defaultProjectId) ||
+    modeData.projects.find((p) => p.autoOpen === true) ||
     modeData.projects[0] ||
     null;
 
@@ -232,7 +233,7 @@ async function saveProject() {
 
   if (state.editingProjectId === "__new__") {
     const id = generateId();
-    modeData.projects.push({ id, name, urls });
+    modeData.projects.push({ id, name, urls, autoOpen: false });
     state.selectedProjectId = id;
   } else {
     const project = modeData.projects.find((p) => p.id === state.editingProjectId);
@@ -254,8 +255,12 @@ async function deleteProject() {
 
   const modeData = state.modes[state.currentMode];
   modeData.projects = modeData.projects.filter((p) => p.id !== id);
-  if (modeData.defaultProjectId === id) modeData.defaultProjectId = null;
-  if (state.selectedProjectId === id) state.selectedProjectId = modeData.projects[0]?.id || null;
+  if (state.selectedProjectId === id) {
+    state.selectedProjectId =
+      modeData.projects.find((p) => p.autoOpen)?.id ||
+      modeData.projects[0]?.id ||
+      null;
+  }
   if (state.expandedProjectId === id) state.expandedProjectId = null;
 
   await storageSet({ modes: state.modes });
@@ -270,7 +275,9 @@ async function switchMode(mode) {
   state.expandedProjectId = null; // collapse any open tree when switching modes
   const modeData = state.modes[mode];
   state.selectedProjectId =
-    modeData.defaultProjectId || modeData.projects[0]?.id || null;
+    modeData.projects.find((p) => p.autoOpen)?.id ||
+    modeData.projects[0]?.id ||
+    null;
   await storageSet({ currentMode: mode });
   render();
 }
