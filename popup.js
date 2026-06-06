@@ -213,6 +213,7 @@ function closeEditPanel() {
   document.getElementById("bookmarkPicker").classList.add("hidden");
   document.getElementById("bmToggleBtn").classList.remove("active");
   document.getElementById("bmSearch").value = "";
+  document.body.classList.remove("picker-open");
 }
 
 async function saveProject() {
@@ -303,6 +304,7 @@ async function toggleBookmarkPicker() {
   if (!picker.classList.contains("hidden")) {
     picker.classList.add("hidden");
     btn.classList.remove("active");
+    document.body.classList.remove("picker-open");
     return;
   }
 
@@ -315,6 +317,7 @@ async function toggleBookmarkPicker() {
   renderBookmarkList(cachedBookmarks);
   picker.classList.remove("hidden");
   btn.classList.add("active");
+  document.body.classList.add("picker-open");
   document.getElementById("bmSearch").focus();
 }
 

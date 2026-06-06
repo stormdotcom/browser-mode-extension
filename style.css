@@ -516,6 +516,23 @@ body {
   border-color: #ef4444;
 }
 
+/* ── Bookmark picker expanded state ──
+   When the picker is open, grow the popup and shrink the textarea
+   so the bookmark list gets generous visible space.             */
+body.picker-open,
+body.picker-open #mainView {
+  min-height: 560px;
+}
+
+body.picker-open .field-textarea {
+  min-height: 54px;
+  max-height: 70px;
+}
+
+body.picker-open .bm-list {
+  max-height: 280px;
+}
+
 /* ── Bookmark picker ── */
 .bm-toggle-btn {
   display: flex;
