@@ -1,5 +1,44 @@
 ### StartSmart: Your Ultimate Startup URL Manager
 
+---
+
+### Building a Package
+
+To create a distributable `.zip` for the Chrome Web Store or local distribution, run the included Python build script. No external dependencies — only the Python standard library is required.
+
+**Prerequisites:** Python 3.6 or later
+
+**Run the build:**
+
+```bash
+python build.py
+```
+
+**Output:** `dist/startsmart-v<version>.zip`
+
+The version is read automatically from `manifest.json`. The zip contains only the files Chrome needs:
+
+```
+manifest.json
+background.js
+popup.html
+popup.js
+style.css
+constants.js
+images/icon16.png
+images/icon48.png
+images/icon128.png
+```
+
+Development files (`build.py`, `readMe.md`, `CLAUDE.md`, `.gitignore`, `.vscode/`) are excluded.
+
+**To publish to the Chrome Web Store:**
+1. Run `python build.py`
+2. Go to the [Chrome Developer Dashboard](https://chrome.google.com/webstore/devconsole)
+3. Upload the generated zip from the `dist/` folder
+
+---
+
 **Overview:**
 StartSmart is a powerful Chrome browser extension designed to streamline your browsing experience by managing your startup URLs with ease. Whether you're a professional who needs specific pages open every morning or a casual user looking to save time, StartSmart ensures your favorite websites are ready for you as soon as you launch your browser.
 
