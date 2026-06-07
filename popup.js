@@ -144,10 +144,20 @@ function renderProjectList() {
       renderOpenButton();
     });
 
-    // Startup toggle — independently enables/disables auto-open per project
+    // Startup toggle — radio-button behaviour: enabling one disables all others
     header.querySelector(".startup-toggle").addEventListener("click", async (e) => {
       e.stopPropagation();
-      project.autoOpen = !project.autoOpen;
+      const enabling = !project.autoOpen;
+      const modeProjects = state.modes[state.currentMode].projects;
+
+      if (enabling) {
+        // Turn off every other project first (radio-button)
+        for (const p of modeProjects) p.autoOpen = false;
+        // Also select this project so the Open button reflects the change
+        state.selectedProjectId = project.id;
+      }
+
+      project.autoOpen = enabling;
       await storageSet({ modes: state.modes });
       renderProjectList();
       renderOpenButton();
