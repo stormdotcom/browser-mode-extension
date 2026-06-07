@@ -1,3 +1,5 @@
 CLAUDE.md
 *.zip
 dist/
+.claude/*
+node_modules/
