@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>StartSmart Icon Generator</title>
+<style>
+  body { font-family: system-ui, sans-serif; padding: 24px; background: #0f0f11; color: #e5e5e5; }
+  h2 { color: #a78bfa; margin-bottom: 4px; }
+  .preview { display: flex; gap: 32px; align-items: flex-end; margin: 24px 0; }
+  .item { text-align: center; }
+  .item p { font-size: 12px; color: #888; margin: 8px 0 4px; }
+  canvas { display: block; border-radius: 4px; image-rendering: pixelated; }
+  button {
+    margin-top: 6px; padding: 6px 14px; background: #6366f1; color: #fff;
+    border: none; border-radius: 6px; cursor: pointer; font-size: 12px;
+  }
+  button:hover { background: #4f46e5; }
+  .note { color: #888; font-size: 13px; margin-top: 16px; }
+</style>
+</head>
+<body>
+<h2>StartSmart — Icon Generator</h2>
+<p style="color:#888;font-size:13px">Click each button to download the PNG at the correct size.</p>
+
+<div class="preview">
+  <div class="item">
+    <canvas id="c128" width="128" height="128"></canvas>
+    <p>128×128</p>
+    <button onclick="download('c128','icon128.png')">Download</button>
+  </div>
+  <div class="item">
+    <canvas id="c48" width="48" height="48"></canvas>
+    <p>48×48</p>
+    <button onclick="download('c48','icon48.png')">Download</button>
+  </div>
+  <div class="item">
+    <canvas id="c16" width="16" height="16"></canvas>
+    <p>16×16</p>
+    <button onclick="download('c16','icon16.png')">Download</button>
+  </div>
+</div>
+
+<p class="note">After downloading, replace the files in the <code>images/</code> folder and reload the extension.</p>
+
+<script>
+function drawIcon(canvas) {
+  const s = canvas.width;
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, s, s);
+
+  // --- Background: rounded rectangle with gradient ---
+  const r = s * 0.22;
+  const pad = s * 0.04;
+
+  ctx.save();
+  // Rounded rect path
+  ctx.beginPath();
+  ctx.moveTo(pad + r, pad);
+  ctx.lineTo(s - pad - r, pad);
+  ctx.quadraticCurveTo(s - pad, pad, s - pad, pad + r);
+  ctx.lineTo(s - pad, s - pad - r);
+  ctx.quadraticCurveTo(s - pad, s - pad, s - pad - r, s - pad);
+  ctx.lineTo(pad + r, s - pad);
+  ctx.quadraticCurveTo(pad, s - pad, pad, s - pad - r);
+  ctx.lineTo(pad, pad + r);
+  ctx.quadraticCurveTo(pad, pad, pad + r, pad);
+  ctx.closePath();
+
+  // Gradient: deep indigo → violet
+  const grad = ctx.createLinearGradient(pad, pad, s - pad, s - pad);
+  grad.addColorStop(0,   '#4f46e5'); // indigo-600
+  grad.addColorStop(0.5, '#7c3aed'); // violet-600
+  grad.addColorStop(1,   '#9333ea'); // purple-600
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  // Subtle inner glow overlay
+  const glow = ctx.createRadialGradient(s * 0.38, s * 0.3, 0, s * 0.5, s * 0.5, s * 0.6);
+  glow.addColorStop(0, 'rgba(255,255,255,0.18)');
+  glow.addColorStop(1, 'rgba(255,255,255,0)');
+  ctx.fillStyle = glow;
+  ctx.fill();
+  ctx.restore();
+
+  // --- Lightning bolt (white) ---
+  // Points defined as fractions of canvas size, centred
+  // Bolt shape: top-right down to middle, then bottom-left
+  const bx = (f) => s * f;
+  const by = (f) => s * f;
+
+  ctx.save();
+  ctx.beginPath();
+  // Top-right of bolt head
+  ctx.moveTo(bx(0.595), by(0.115));
+  // Down to mid-right
+  ctx.lineTo(bx(0.595), by(0.115));
+  ctx.lineTo(bx(0.455), by(0.50));
+  // Extend right to create the wing
+  ctx.lineTo(bx(0.60),  by(0.50));
+  // Down to bottom tip
+  ctx.lineTo(bx(0.405), by(0.885));
+  // Back up the left side
+  ctx.lineTo(bx(0.545), by(0.525));
+  // Extend left wing
+  ctx.lineTo(bx(0.395), by(0.525));
+  ctx.closePath();
+
+  ctx.fillStyle = 'rgba(255,255,255,0.95)';
+  ctx.fill();
+
+  // Thin accent line on right edge of bolt for depth
+  ctx.strokeStyle = 'rgba(255,255,255,0.35)';
+  ctx.lineWidth = s * 0.012;
+  ctx.stroke();
+  ctx.restore();
+
+  // --- Small tab indicators (3 dots top-left, subtle) ---
+  if (s >= 48) {
+    const dotR = s * 0.038;
+    const dotY = s * 0.175;
+    const dotStart = s * 0.155;
+    const dotGap = s * 0.095;
+    for (let i = 0; i < 3; i++) {
+      ctx.beginPath();
+      ctx.arc(dotStart + i * dotGap, dotY, dotR, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,255,255,0.28)';
+      ctx.fill();
+    }
+  }
+}
+
+// Render all sizes
+['c128','c48','c16'].forEach(id => {
+  drawIcon(document.getElementById(id));
+});
+
+function download(canvasId, filename) {
+  const canvas = document.getElementById(canvasId);
+  const link = document.createElement('a');
+  link.download = filename;
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+}
+</script>
+</body>
+</html>
